@@ -14,6 +14,7 @@ Role Variables
 
 - ``dehydrated_well_known_path: /usr/share/nginx/letsencrypt``: The path served for the challenge response, will contain the ``.acme/well_known`` directory.
 - ``dehydrated_ssl_services: [- nginx]``: Services to be restarted on certificate updates.
+- ``dehydrated_deploy_hook_directory: "{{ dehydrated_cert_path }}/deploy_hooks/"``: Folder for scripts wich are run if a cert woud deployed
 - ``dehydrated_cert_path: /etc/ssl/letsencrypt``: The path where dehydrated itself and all certificates fetched will be located.
 - ``dehydrated_domains``: A list of domain lists to be requested as certificates. The first domain in each list is the primary one that will also be in the certificate file name and path. Format:
 
@@ -52,3 +53,4 @@ Author Information
 ------------------
 
 rixx <r at rixx.de>
+changed by pcopfer <c@pcopfer.de>

@@ -65,6 +65,10 @@ deploy_cert() {
 	{% for service in dehydrated_ssl_services %}
 	pidof systemd && systemctl reload {{ service }} || /usr/sbin/service {{ service }} reload
 	{% endfor %}
+	
+	if [ -d "{{ dehydrated_deploy_hook_directory }}" ]; then
+          run-parts --regex '\.sh$' -a $DOMAIN -a $KEYFILE -a $CERTFILE -a $FULLCHAINFILE -a $CHAINFILE -a $TIMESTAMP -- {{ dehydrated_deploy_hook_directory }}
+	fi
 }
 
 unchanged_cert() {

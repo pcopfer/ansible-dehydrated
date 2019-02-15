@@ -38,6 +38,15 @@
   tags:
     - dehydrated
 
+- name: Ensure that the dehydrated deploy_hooks folder exists
+  file:
+    path: "{{ dehydrated_deploy_hook_directory }}"
+    state: directory
+    mode: 0750
+    owner: root
+  tags:
+    - dehydrated
+
 - name: Ensure that the letsencrypt domain list file exists
   file:
     path: "{{ dehydrated_cert_path }}/domains.txt"
@@ -82,5 +91,6 @@
     minute: 0
     day: "*/3"
     job: "{{ dehydrated_cert_path }}/dehydrated -c --hook {{ dehydrated_cert_path }}/hooks.sh -f {{ dehydrated_cert_path }}/dehydrated.conf"
+    cron_file: ansible_dehydrated
   tags:
     - dehydrated
