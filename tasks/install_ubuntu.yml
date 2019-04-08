@@ -1,9 +1,10 @@
 ---
 - name: Ensure all dehydrated dependencies are installed
   apt:
-    pkg: "{{ item }}"
+    name: "{{ packages }}"
     state: present
-  with_items:
+  vars:
+    packages:      
     - openssl
     - curl
     - sed
