@@ -84,7 +84,7 @@
   tags:
     - dehydrated
 
-- name: Add letsencrypt cronjob
+- name: Add letsencrypt cronjob in cron.d
   cron:
     name: letsencrypt
     hour: 7
@@ -92,5 +92,18 @@
     day: "*/3"
     job: "{{ dehydrated_cert_path }}/dehydrated -c --hook {{ dehydrated_cert_path }}/hooks.sh -f {{ dehydrated_cert_path }}/dehydrated.conf"
     cron_file: ansible_dehydrated
+    user: root
   tags:
     - dehydrated
+
+- name: Remove letsencrypt crontab cronjob
+  cron:
+    name: letsencrypt
+    hour: 7
+    minute: 0
+    day: "*/3"
+    job: "{{ dehydrated_cert_path }}/dehydrated -c --hook {{ dehydrated_cert_path }}/hooks.sh -f {{ dehydrated_cert_path }}/dehydrated.conf"
+    state: absent
+  tags:
+    - dehydrated
+
